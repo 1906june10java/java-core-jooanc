@@ -14,10 +14,21 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		char character;
+		String result = "";
+		for(int i = 0; i < phrase.length(); i++) {
+			character = phrase.charAt(i);
+			if(i == 0) {
+				result = result + Character.toUpperCase(phrase.charAt(i));
+			}
+			if(character == ' ' ||character == '-') {
+				result = result + Character.toUpperCase(phrase.charAt(i+1));
+			}
+		}
+		
+		
+		return result;
 	}
-
 	/**
 	 * 2. Given a word, compute the scrabble score for that word.
 	 * 
@@ -34,8 +45,62 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
+		char character;
+		
+		int score = 0;
+		
+		for(int i =0; i < string.length(); i++ ) {
+			character = Character.toLowerCase(string.charAt(i));
+			switch(character) {
+				case 'a':
+				case 'e':
+				case 'i':
+				case 'o':
+				case 'u':
+				case 'l':
+				case 'n':
+				case 'r':
+				case 's':
+				case 't':
+					score += 1;
+					break;
+				case 'd':
+				case 'g':
+					score += 2;
+					break;
+				case 'b':
+				case 'c':
+				case 'm':
+				case 'p':
+					score += 3;
+					break;
+				case 'f':
+				case 'h':
+				case 'v':
+				case 'w':
+				case 'y':
+					score += 4;
+					break;
+				case 'k':
+					score += 5;
+					break;
+				case 'j':
+				case 'x':
+					score += 8;
+					break;
+				case 'q':
+				case 'z':
+					score += 10;
+					break;
+				
+			}
+			
+		}
 		// TODO Write an implementation for this method declaration
-		return 0;
+		
+		
+		
+		return score;
 	}
 
 	/**
@@ -71,7 +136,30 @@ public class EvaluationService {
 	 */
 	public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String phone_number = "";
+		int starting_number = 0;
+		if(string.charAt(0) == '1') { 
+			starting_number = starting_number + 1;
+		if(string.charAt(0) == '+') {
+			starting_number = starting_number + 2;
+		}
+		}
+		
+		for(int i = starting_number; i < string.length(); i ++) {
+			char character = string.charAt(i);
+			if(character == '-' || character == ' ' || character == '.' || character == ')' || character == '(') {
+				continue;
+			}
+			if(character != '1' || character != '2' || character != '3' || character != '4' || character != '5' || character != '6' || character != '7' || character != '8' || character != '9' || character != '0' || character != '-' || character != ' ' || character != '.' || character != ')' || character != '(') {
+				throw new IllegalArgumentException();
+			}
+			phone_number += string.charAt(i);
+		}
+		if(phone_number.length() >= 11) {
+			throw new IllegalArgumentException();
+		}
+		
+		return phone_number;
 	}
 
 	/**
@@ -163,6 +251,7 @@ public class EvaluationService {
 	 */
 	public boolean isArmstrongNumber(int input) {
 		// TODO Write an implementation for this method declaration
+		
 		return false;
 	}
 
