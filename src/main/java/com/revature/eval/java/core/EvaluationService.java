@@ -1,7 +1,9 @@
 package com.revature.eval.java.core;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Arrays;  
 
 public class EvaluationService {
 
@@ -146,13 +148,6 @@ public class EvaluationService {
 		}
 		
 		for(int i = starting_number; i < string.length(); i ++) {
-			char character = string.charAt(i);
-			if(character == '-' || character == ' ' || character == '.' || character == ')' || character == '(') {
-				continue;
-			}
-			if(character != '1' || character != '2' || character != '3' || character != '4' || character != '5' || character != '6' || character != '7' || character != '8' || character != '9' || character != '0' || character != '-' || character != ' ' || character != '.' || character != ')' || character != '(') {
-				throw new IllegalArgumentException();
-			}
 			phone_number += string.charAt(i);
 		}
 		if(phone_number.length() >= 11) {
@@ -173,6 +168,19 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
+		String[] 
+		//while(string.length()>0) {
+		int n = string.indexOf(' ');	
+		String previousWord = string.substring(0, n-1);
+		string = string.substring(n+1);
+		String s1 ="";
+		
+		if(!(previousWord.equals(s1))) {
+			
+		}
+		
+		//}
+		
 		return null;
 	}
 
@@ -216,7 +224,27 @@ public class EvaluationService {
 
 		public int indexOf(T t) {
 			// TODO Write an implementation for this method declaration
-			return 0;
+			int low = 0;
+			int high = sortedList.size() - 1;
+			int index = sortedList.size() -1;
+			
+			while (low <= high) {
+				
+				int mid = (low + high)/2;
+				
+				if (t.equals(sortedList.get(mid))) {
+					index = sortedList.indexOf(t);
+					break;
+				}
+				else if (mid > sortedList.indexOf(t)) {
+					high = mid - 1;
+				}
+				else {
+					low = mid + 1;
+				}
+				
+			}
+			return index;
 		}
 
 		public BinarySearch(List<T> sortedList) {
@@ -248,11 +276,22 @@ public class EvaluationService {
 	 * 
 	 * @param input
 	 * @return
-	 */
+	 */ 
+	//boolean
 	public boolean isArmstrongNumber(int input) {
 		// TODO Write an implementation for this method declaration
+		String result = Integer.toString(input);
+		int original = input;
+		int sum = 0;
 		
-		return false;
+		for(int i = 1; i <= result.length(); i ++) {
+			int lastDigit = input%10;
+			sum = (int) (sum + Math.pow(lastDigit, result.length()));
+			input = (input - lastDigit)/10;
+		 }
+		if (sum == original) return true;
+		else return false;
+			
 	}
 
 	/**
@@ -267,7 +306,17 @@ public class EvaluationService {
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		List<Long> myList = new ArrayList<>();
+		for( int i = 2; i <= l; i++) {
+			while(l % i == 0) {
+				myList.add((long)i);
+				l = l/i;
+			}
+			
+		}
+			
+		
+		return myList;
 	}
 
 
@@ -304,6 +353,8 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String encode(String string) {
+			
+			
 			// TODO Write an implementation for this method declaration
 			return null;
 		}
@@ -349,7 +400,24 @@ public class EvaluationService {
 	 */
 	public int solveWordProblem(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		string = string.substring(8, (string.indexOf('?')));	
+		String[] arr = string.split(" ");
+		List<String> myList = Arrays.asList(arr); 
+
+		int answer = 0;		
+
+		if(myList.get(1).equals("minus")) {
+			answer = (Integer.parseInt(myList.get(0)) - Integer.parseInt(myList.get(2)));
+		}
+		else if(myList.get(1).equals("plus")) {
+			answer = (Integer.parseInt(myList.get(0)) + Integer.parseInt(myList.get(2)));
+		}
+		else if(myList.get(1).equals("multiplied")) {
+			answer = Integer.parseInt(myList.get(0)) * Integer.parseInt(myList.get(3));
+		}
+		else answer = Integer.parseInt(myList.get(0)) / Integer.parseInt(myList.get(3));
+		return answer;
+
 	}
 
 }
